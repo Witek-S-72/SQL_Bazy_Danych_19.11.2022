@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, String, Integer, Float, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from datetime import datetime
 
 Base = declarative_base()
 session = sessionmaker()
@@ -33,8 +34,8 @@ class Course(Base):
     title = Column(String(255))
     credits = Column(String(255))
     departamen_id = Column(Integer)
-    start_date = Column(DateTime, )  # default = now, _get_date, lub objekt datetime ?
-    end_date = Column(DateTime)
+    start_date = Column(DateTime(),default = datetime.now )  # default = now, _get_date, lub objekt datetime ?
+    end_date = Column(DateTime(), onupdate = datetime.now)
     price = Column(Float)
 
 
@@ -51,7 +52,7 @@ class OnsiteCourse(Base):
     course_id = Column(Integer, primary_key=True)
     address = Column(String(255))
     days = Column(Integer)
-    time = Column(DateTime)
+    time = Column(Integer)
 
 
 class Administrator(Base):
@@ -59,7 +60,7 @@ class Administrator(Base):
 
     stuff_id = Column(Integer, primary_key=True, unique=True)
     departament_id = Column(Integer)
-    enrollment_date = Column(DateTime)
+    enrollment_date = Column(DateTime(), onupdate = datetime.now)
 
 
 class Departament(Base):
@@ -77,7 +78,7 @@ class Staff(Base):
     id = Column(Integer, primary_key=True)
     first_name = Column(String(50))
     last_name = Column(String(255))
-    enrollment_date = Column(DateTime)
+    enrollment_date = Column(DateTime(), onupdate = datetime.now)
     PESEL = Column(Integer, unique=True)
     phone = Column(Integer)
     address = Column(String(255))
@@ -88,4 +89,4 @@ class CourseInstructor(Base):
 
     course_id = Column(Integer)
     stuff_id = Column(Integer)
-    enrollment_date = Column(DateTime)
+    enrollment_date = Column(DateTime(), onupdate = datetime.now)
