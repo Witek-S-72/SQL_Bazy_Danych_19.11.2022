@@ -13,7 +13,7 @@ class Student(Base):
     id = Column(Integer, primary_key=True)
     first_name = Column(String(50))
     last_name = Column(String(255))
-    PESEL = Column(Integer, unique=True)  # co w przypadku alphanum? String?
+    PESEL = Column(String(50), unique=True)  # co w przypadku alphanum? String?
     phone = Column(Integer)
     address = Column(String(255))
 
@@ -35,7 +35,7 @@ class Course(Base):
     credits = Column(String(255))
     departamen_id = Column(Integer)
     start_date = Column(DateTime(),default = datetime.now )  # default = now, _get_date, lub objekt datetime ?
-    end_date = Column(DateTime(), onupdate = datetime.now)
+    end_date = Column(DateTime(), default = datetime.now, onupdate = datetime.now)
     price = Column(Float)
 
 
@@ -60,7 +60,7 @@ class Administrator(Base):
 
     stuff_id = Column(Integer, primary_key=True, unique=True)
     departament_id = Column(Integer)
-    enrollment_date = Column(DateTime(), onupdate = datetime.now)
+    enrollment_date = Column(DateTime(), default = datetime.now, onupdate = datetime.now)
 
 
 class Departament(Base):
@@ -78,8 +78,8 @@ class Staff(Base):
     id = Column(Integer, primary_key=True)
     first_name = Column(String(50))
     last_name = Column(String(255))
-    enrollment_date = Column(DateTime(), onupdate = datetime.now)
-    PESEL = Column(Integer, unique=True)
+    enrollment_date = Column(DateTime(), default = datetime.now, onupdate = datetime.now)
+    PESEL = Column(String(50), unique=True)
     phone = Column(Integer)
     address = Column(String(255))
 
@@ -89,4 +89,4 @@ class CourseInstructor(Base):
 
     course_id = Column(Integer)
     stuff_id = Column(Integer)
-    enrollment_date = Column(DateTime(), onupdate = datetime.now)
+    enrollment_date = Column(DateTime(), default = datetime.now, onupdate = datetime.now)
